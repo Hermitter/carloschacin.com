@@ -1,17 +1,24 @@
 {
   "name": "carloschacin.com",
+  "homepage": "https://hermitter.github.io/carloschacin.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "three": "^0.91.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
   }
 }

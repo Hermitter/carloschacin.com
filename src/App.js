@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {HashRouter, Switch, Route} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import Test from './components/Test.js';
+import Test from './pages/Test.js';
 import Home from './pages/Home.js'
 
 class App extends Component {
