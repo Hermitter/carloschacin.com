@@ -1,9 +1,12 @@
 //Initial Vars
 import * as THREE from 'three';
+import * as TrackballControls from 'three-trackballcontrols';
 import './Canvas.css';
 import spaceTexture from './../media/space.jpg';
 var camera, scene, renderer;
-var geometry, material, mesh;
+var geometry, material, controls, mesh, spacesphere;
+var DEV_CONTROLS = false;
+
 
 //////////////////////////////////
 // Event Listeners
@@ -14,19 +17,25 @@ window.addEventListener( 'resize', onWindowResize, false );
 // Functions
 /////////////////////////////////
 function init() {
-    //camera\\
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+    //CAMERA\\
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 1000 );
+    if(DEV_CONTROLS)
+        controls = new TrackballControls( camera );//controls for Development!
+
     camera.position.x = 0; 
     camera.position.y = 0; 
-    camera.position.z = -15; 
+    camera.position.z = 15;
     
-    //scene\\
+    //SCENE\\
+
+    //spining cube
     scene = new THREE.Scene();
  
     geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
     material = new THREE.MeshNormalMaterial();
  
     mesh = new THREE.Mesh( geometry, material );
+
     scene.add( mesh );
 
     //space sphere
@@ -36,7 +45,7 @@ function init() {
     var spacesphereMat = new THREE.MeshPhongMaterial();
     spacesphereMat.map = spacetex;
   
-    var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
+    spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
     
     //spacesphere needs to be double sided as the camera is within the spacesphere
     spacesphere.material.side = THREE.DoubleSide;
@@ -45,6 +54,7 @@ function init() {
     spacesphere.material.map.wrapT = THREE.RepeatWrapping;
     spacesphere.material.map.repeat.set( 5, 3);
     
+    spacesphere.position.set( 0, 0, 0 );
     scene.add(spacesphere);
 
     //create two spotlights to illuminate the scene
@@ -58,7 +68,7 @@ function init() {
     spotLight2.intensity = 1.5;
     scene.add( spotLight2 );
 
-    //renderer\\
+    //RENDERER\\
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.domElement.id = 'canvas';
@@ -71,13 +81,18 @@ function init() {
 function animate() {
     requestAnimationFrame( animate );
 
-    camera.position.z += 0.01;
+    if(DEV_CONTROLS)
+        controls.update();//controls for Development!
 
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.02;
+    //camera.position.z += 0.01;
+
+    spacesphere.rotation.y += 0.003;
+    //mesh.rotation.x += 0.01;
+    //mesh.rotation.y += 0.02;
  
     renderer.render( scene, camera );
- 
+
+    console.log(camera.position.x+' '+camera.position.y+' '+camera.position.z)
 }
 
 // - Starts canvas animation
