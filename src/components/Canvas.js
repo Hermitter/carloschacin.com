@@ -6,6 +6,7 @@ import spaceTexture from './../media/space.jpg';
 var camera, scene, renderer;
 var geometry, material, controls, mesh, spacesphere, mirror;
 var DEV_CONTROLS = true;
+var mirror_video;
 
 //////////////////////////////////
 // Event Listeners
@@ -15,7 +16,7 @@ window.addEventListener( 'resize', onWindowResize, false );
 //////////////////////////////////
 // Functions
 /////////////////////////////////
-function init(mirror_video) {
+function init() {
     //////////////////////////////////
     //CAMERA\\
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 1000 );
@@ -47,28 +48,25 @@ function init(mirror_video) {
     scene.add(mirror);
 
     //space sphere\\
-    var spacetex = new THREE.TextureLoader().load(spaceTexture);
+    var spacetex = new THREE.TextureLoader().load( spaceTexture );
     var spacesphereGeo = new THREE.SphereGeometry(20,20,20);
     var spacesphereMat = new THREE.MeshPhongMaterial();
     spacesphereMat.map = spacetex;
   
-    spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
+    spacesphere = new THREE.Mesh( spacesphereGeo, spacesphereMat );
     
-    //spacesphere needs to be double sided as the camera is within the spacesphere
-    spacesphere.material.side = THREE.DoubleSide;
-    spacesphere.material.map.wrapS = THREE.RepeatWrapping;//optional
-    spacesphere.material.map.wrapT = THREE.RepeatWrapping;//optional
-    spacesphere.material.map.repeat.set( 5, 3);//optional
-    spacesphere.position.set( 0, 0, 0 );
+    spacesphere.material.side = THREE.DoubleSide;//make material double sided
+    spacesphere.material.map.wrapS = THREE.RepeatWrapping;//horizontal texture wrap
+    spacesphere.material.map.wrapT = THREE.RepeatWrapping;//vertical texture wrap
+    spacesphere.material.map.repeat.set( 5, 3 );//amount of texture repeats
+    spacesphere.position.set( 0, 0, 0 );//texture start location
     scene.add(spacesphere);
     
     //spining cube\\
     geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-    material = new THREE.MeshNormalMaterial();
- 
+    material = new THREE.MeshNormalMaterial(); 
     mesh = new THREE.Mesh( geometry, material );
-
-    scene.add( mesh );
+    //scene.add( mesh );
 
     //create two spotlights to illuminate the scene
     var spotLight = new THREE.SpotLight( 0xffffff ); 
@@ -98,7 +96,10 @@ function animate() {
     if(DEV_CONTROLS)
         controls.update();//controls for Development!
 
-    //camera.position.z += 0.01;
+    //mirror.lookAt(camera.position)
+    mirror.rotation.x += 0.005;
+    //mirror.rotation.y += 0.005
+    mirror.rotation.z += 0.005
 
     spacesphere.rotation.y += 0.001;
     //mesh.rotation.x += 0.01;
@@ -110,7 +111,8 @@ function animate() {
 
 // - Starts canvas animation
 function startCanvas(params){
-    init(params.mirror_video);
+    mirror_video = params.mirror_video
+    init();
     animate();
 }
 
