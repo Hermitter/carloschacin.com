@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
-import {start} from './../components/Canvas.js'
+import MirrorVideo from './../components/MirrorVideo'
+import {startCanvas} from './../components/Canvas.js'
 //three.js test end
 
 class Test extends React.Component {
   render() {
     return(
-      <div id='canvas-container'>
+      <div>
+        <MirrorVideo/>
+        <div id='canvas-container'></div>
       </div>
     );
   }
 
+  //start 3d animation
   componentDidMount(){
-    start();//start 3d animation
+      startCanvas({'mirror_video': document.getElementById('mirror-video')});
   }
   
 }
