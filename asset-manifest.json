@@ -1,8 +1,9 @@
 {
-  "main.css": "static/css/main.ee0262f3.css",
-  "main.css.map": "static/css/main.ee0262f3.css.map",
-  "main.js": "static/js/main.eaffb289.js",
-  "main.js.map": "static/js/main.eaffb289.js.map",
-  "static/media/logo.svg": "static/media/logo.5d5d9eef.svg",
-  "static/media/space.jpg": "static/media/space.550d57ca.jpg"
+  "main.css": "static/css/main.edb52a81.css",
+  "main.css.map": "static/css/main.edb52a81.css.map",
+  "main.js": "static/js/main.f7ca3dd9.js",
+  "main.js.map": "static/js/main.f7ca3dd9.js.map",
+  "static\\media\\movie.mp4": "static/media/movie.198918f4.mp4",
+  "static\\media\\movie2.mp4": "static/media/movie2.4ba57ee8.mp4",
+  "static\\media\\space.jpg": "static/media/space.84c2a238.jpg"
 }
