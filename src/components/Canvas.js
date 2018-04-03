@@ -8,6 +8,8 @@ var geometry, material, controls, mesh, spacesphere, mirror;
 var DEV_CONTROLS = true;
 var mirror_video;
 
+console.log(document.getElementById('mirror-video'));
+
 //////////////////////////////////
 // Event Listeners
 /////////////////////////////////

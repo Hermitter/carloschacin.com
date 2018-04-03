@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import MirrorVideo from './../components/MirrorVideo'
-import {startCanvas} from './../components/Canvas.js'
+//improt canvas from './../components/Canvas.js';
+import {startCanvas} from './../components/Canvas.js';
 //three.js test end
 
 class Test extends React.Component {
