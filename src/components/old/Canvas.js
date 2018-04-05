@@ -1,56 +1,23 @@
-import React, {Component} from 'react';
+//Initial Vars
 import * as THREE from 'three';
 import * as TrackballControls from 'three-trackballcontrols';
 import './Canvas.css';
 import spaceTexture from './../media/space.jpg';
+var camera, scene, renderer;
+var geometry, material, controls, mesh, spacesphere, mirror;
+var DEV_CONTROLS = true;
+var mirror_video;
 
-var moveDirection = 0;
-
-export class Canvas extends Component {
-    constructor(props){
-        super(props);
-        this.state = {location: ''}
-        this.sceneMove = this.sceneMove.bind(this);
-    }
-
-    sceneMove(newLocation){
-        this.setState({
-            location: newLocation
-        })
-    }
-
-    render(){
-        if(this.props.path == 'home')
-            moveDirection = 0.01;
-        else
-            moveDirection = -0.01;
-
-        return(
-            <div>
-                <div id='canvas-container'></div>
-                <p>Canvas Thinks you are in: {this.props.path}</p>  
-            </div>
-        );
-    }
-
-    componentDidMount(){
-        startCanvas();//Render Three.js Scene
-    }
-}
-
+console.log(document.getElementById('mirror-video'));
 
 //////////////////////////////////
 // Event Listeners
 /////////////////////////////////
 window.addEventListener( 'resize', onWindowResize, false );
 
-
 //////////////////////////////////
 // Functions
 /////////////////////////////////
-var camera, scene, renderer;
-var geometry, material, controls, mesh, spacesphere, mirror;
-var DEV_CONTROLS = false;
 function init() {
     //////////////////////////////////
     //CAMERA\\
@@ -67,24 +34,24 @@ function init() {
     scene = new THREE.Scene();
  
     //mirror\\
-    // var mirror_texture = new THREE.VideoTexture( mirror_video );
-    // //var mirror_texture = new THREE.TextureLoader().load(spaceTexture);
-    // mirror_texture.minFilter = THREE.LinearFilter;
-    // mirror_texture.magFilter = THREE.LinearFilter;
-    // mirror_texture.format = THREE.RGBFormat;
+    var mirror_texture = new THREE.VideoTexture( mirror_video );
+    //var mirror_texture = new THREE.TextureLoader().load(spaceTexture);
+    mirror_texture.minFilter = THREE.LinearFilter;
+    mirror_texture.magFilter = THREE.LinearFilter;
+    mirror_texture.format = THREE.RGBFormat;
 
-    // var mirror_geometry = new THREE.PlaneGeometry( 2, 3, 0 );
-    // var mirror_material = new THREE.MeshPhongMaterial();
-    // mirror_material.map = mirror_texture;
+    var mirror_geometry = new THREE.PlaneGeometry( 2, 3, 0 );
+    var mirror_material = new THREE.MeshPhongMaterial();
+    mirror_material.map = mirror_texture;
 
-    // mirror = new THREE.Mesh( mirror_geometry, mirror_material );
-    // mirror.material.side = THREE.DoubleSide;
+    mirror = new THREE.Mesh( mirror_geometry, mirror_material );
+    mirror.material.side = THREE.DoubleSide;
 
-    // scene.add(mirror);
+    scene.add(mirror);
 
     //space sphere\\
     var spacetex = new THREE.TextureLoader().load( spaceTexture );
-    var spacesphereGeo = new THREE.SphereGeometry(40,40,40);
+    var spacesphereGeo = new THREE.SphereGeometry(20,20,20);
     var spacesphereMat = new THREE.MeshPhongMaterial();
     spacesphereMat.map = spacetex;
   
@@ -132,22 +99,21 @@ function animate() {
         controls.update();//controls for Development!
 
     //mirror.lookAt(camera.position)
-    //mirror.rotation.x += 0.005;
+    mirror.rotation.x += 0.005;
     //mirror.rotation.y += 0.005
-    //mirror.rotation.z += 0.005
+    mirror.rotation.z += 0.005
 
-    //spacesphere.rotation.y += 0.0005;
+    spacesphere.rotation.y += 0.001;
     //mesh.rotation.x += 0.01;
     //mesh.rotation.y += 0.02;
  
-    camera.rotation.x += moveDirection;
     renderer.render(scene, camera);
     //console.log(camera.position.x+' '+camera.position.y+' '+camera.position.z);//camera pos(x,y,z)
 }
 
 // - Starts canvas animation
 function startCanvas(params){
-    //mirror_video = params.mirror_video
+    mirror_video = params.mirror_video
     init();
     animate();
 }
@@ -161,3 +127,5 @@ function onWindowResize(){
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+export {startCanvas}

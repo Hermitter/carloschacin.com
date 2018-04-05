@@ -1,3 +1,8 @@
+body{
+  font-size: 65px;
+  color: white
+}
+
 .App {
   text-align: center;
 }
