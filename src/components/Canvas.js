@@ -3,12 +3,13 @@ import * as THREE from 'three';
 import * as TrackballControls from 'three-trackballcontrols';
 import './Canvas.css';
 import spaceImage from './../media/space.jpg';
-import movie from './../media/movie.mp4';
+import movie from './../media/movie2.mp4';
+import moviePoster from './../media/poster.png'
 import {VideoPlane} from './VideoPlanes'
 import {scene} from './Scene'
 
 var moveDirection = 0;
-var plane1 = new VideoPlane(movie);
+var plane1 = new VideoPlane(moviePoster ,movie);
 
 export class Canvas extends Component {
     constructor(props){
@@ -54,7 +55,7 @@ window.addEventListener( 'resize', onWindowResize, false );
 /////////////////////////////////
 var camera, renderer;
 var geometry, material, controls, mesh, spacesphere, mirror;
-var DEV_CONTROLS = true;
+var DEV_CONTROLS = false;
 function init() {
     //////////////////////////////////
     //CAMERA\\
@@ -68,23 +69,6 @@ function init() {
     
     //////////////////////////////////
     //SCENE\\
-    //scene = new THREE.Scene();
- 
-    //mirror\\
-    // var mirror_texture = new THREE.VideoTexture( mirror_video );
-    // //var mirror_texture = new THREE.TextureLoader().load(spaceImage);
-    // mirror_texture.minFilter = THREE.LinearFilter;
-    // mirror_texture.magFilter = THREE.LinearFilter;
-    // mirror_texture.format = THREE.RGBFormat;
-
-    // var mirror_geometry = new THREE.PlaneGeometry( 2, 3, 0 );
-    // var mirror_material = new THREE.MeshPhongMaterial();
-    // mirror_material.map = mirror_texture;
-
-    // mirror = new THREE.Mesh( mirror_geometry, mirror_material );
-    // mirror.material.side = THREE.DoubleSide;
-
-    // scene.add(mirror);
 
     //space sphere\\
     var spacetex = new THREE.TextureLoader().load( spaceImage );
@@ -149,6 +133,7 @@ function animate() {
     mesh.rotation.y += 0.02;
     //mesh.position.y += 0.01;
     //camera.lookAt(mesh.position);
+    plane1.videoPlane.rotation.y = mesh.rotation.y;
  
     //camera.rotation.x += moveDirection;
     renderer.render(scene, camera);
