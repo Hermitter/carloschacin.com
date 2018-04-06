@@ -1,0 +1,11 @@
+#navigation {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.nav-button{
+    margin-right: 3px;
+    margin-left: 3px;
+    text-align: center
+}

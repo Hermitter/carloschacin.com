@@ -5,10 +5,11 @@ import './Canvas.css';
 import spaceImage from './../media/space.jpg';
 import movie from './../media/movie.mp4';
 import moviePoster from './../media/poster.png'
-import {VideoPlane} from './VideoPlanes'
-import {scene} from './Scene'
+import { VideoPlane } from './../scripts/VideoPlanes'
+import { scene } from './../scripts/Scene'
 
 var moveDirection = 0;
+var location;
 var plane1 = new VideoPlane(moviePoster ,movie);
 var plane2 = new VideoPlane(moviePoster ,movie);
 var plane3 = new VideoPlane(moviePoster ,movie);
@@ -17,21 +18,26 @@ var plane4 = new VideoPlane(moviePoster ,movie);
 export class Canvas extends Component {
     constructor(props){
         super(props);
-        this.state = {location: ''}
+        this.state = {location: ''}//url location
         this.sceneMove = this.sceneMove.bind(this);
     }
 
+    // - Tell React To Rerender (MAY NOT BE NEEDED)
     sceneMove(newLocation){
         this.setState({
             location: newLocation
         })
     }
 
+    //React Render
     render(){
-        if(this.props.path == 'home')
+        //set movedirection based on url (testing will be removed later)
+        if(this.props.path == 'about' || this.props.path == 'contact'){
             moveDirection = 0.01;
-        else
+        }
+        else{
             moveDirection = -0.01;
+        }
 
         return(
             <div>
@@ -41,6 +47,7 @@ export class Canvas extends Component {
         );
     }
 
+    //On Component Load
     componentDidMount(){
         startCanvas();//Render Three.js Scene
     }
@@ -56,9 +63,9 @@ window.addEventListener( 'resize', onWindowResize, false );
 //////////////////////////////////
 // Functions
 /////////////////////////////////
-var camera, renderer;
-var geometry, material, controls, mesh, spacesphere, mirror;
-var DEV_CONTROLS = false;
+var camera, renderer;//visual vars
+var geometry, material, controls, mesh, spacesphere;//scene vars
+var DEV_CONTROLS = false;//orbit controls
 function init() {
     //////////////////////////////////
     //CAMERA\\
@@ -96,18 +103,16 @@ function init() {
 
     //Video Planes\\
     plane1.addToScene();
-    //plane1.mesh.position.x = -3.7
+    plane1.mesh.position.x = -3.7
     
     plane2.addToScene();
-    //plane2.mesh.position.x = -1.5
+    plane2.mesh.position.x = -1.5
 
     plane3.addToScene();
-    //plane3.mesh.position.x = 1.5
+    plane3.mesh.position.x = 1.5
 
     plane4.addToScene();
-    //plane4.mesh.position.x = 3.7
-
-    //plane1.updateImage();
+    plane4.mesh.position.x = 3.7
 
     //create two spotlights to illuminate the scene
     var spotLight = new THREE.SpotLight( 0xffffff ); 
@@ -127,34 +132,21 @@ function init() {
     renderer.domElement.id = 'canvas';
 
     document.getElementById('canvas-container').appendChild(renderer.domElement);
- 
 }
- 
+
 // - Animation loop
 function animate() {
     requestAnimationFrame( animate );
 
-    if(DEV_CONTROLS)
-        controls.update();//controls for Development!
+    //Orbit Controls for Development
+    if(DEV_CONTROLS) controls.update();
 
-    //mirror.rotation.x += 0.005;
-    //mirror.rotation.y += 0.005
-    //mirror.rotation.z += 0.005
-
+    //Static Animations
+    camera.rotation.y += moveDirection;
     spacesphere.rotation.y += 0.0005;
- 
-    mesh.rotation.y += 0.02;
-    //mesh.position.y += 0.01;
-    //camera.lookAt(mesh.position);
-    plane1.mesh.rotation.y = mesh.rotation.y;
-    plane2.mesh.rotation.x = mesh.rotation.y;
-    plane3.mesh.rotation.z = mesh.rotation.y;
-    plane4.mesh.rotation.z = mesh.rotation.y;
-    plane4.mesh.rotation.y = mesh.rotation.y;
-    
-    //camera.rotation.x += moveDirection;
+
+    //Render Scene
     renderer.render(scene, camera);
-    //console.log(camera.position.x+' '+camera.position.y+' '+camera.position.z);//camera pos(x,y,z)
 }
 
 // - Starts canvas animation

@@ -23,7 +23,7 @@ export class VideoPlane {
         this.texture.format = THREE.RGBFormat;
         this.material = new THREE.MeshPhongMaterial();
         this.material.map = this.texture;
-        this.video_geometry = new THREE.PlaneGeometry( 2, 3, 0 );
+        this.video_geometry = new THREE.PlaneGeometry( 1, 2, 0 );
         //Three.js object
         this.mesh = new THREE.Mesh( this.video_geometry, this.material );
         this.mesh.material.side = THREE.DoubleSide;

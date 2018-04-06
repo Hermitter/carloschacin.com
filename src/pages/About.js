@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 
-export class Home extends React.Component {
+export class About extends React.Component {
   constructor(props){
     super(props);
   }
 
   componentDidMount(){
-    this.props.onLoad('/');
+    this.props.onLoad('about');
   }
 
   render() {
     return(
       <div>
-        <p>Current Page: / Page</p>
+        <p>Current Page: About Page</p>
       </div>
     );
   }

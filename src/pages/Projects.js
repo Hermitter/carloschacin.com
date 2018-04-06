@@ -1,21 +1,19 @@
 import React, {Component} from 'react';
 
-class Test extends React.Component {
+export class Projects extends React.Component {
   constructor(props){
     super(props);
   }
 
   componentDidMount(){
-    this.props.onLoad('test');
+    this.props.onLoad('projects');
   }
 
   render() {
     return(
       <div>
-        <p>Current Page: Test Page</p>
+        <p>Current Page: Projects Page</p>
       </div>
     );
   }
 }
-
-export default Test;

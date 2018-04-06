@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 
-export class Home extends React.Component {
+export class Experience extends React.Component {
   constructor(props){
     super(props);
   }
 
   componentDidMount(){
-    this.props.onLoad('/');
+    this.props.onLoad('experience');
   }
 
   render() {
     return(
       <div>
-        <p>Current Page: / Page</p>
+        <p>Current Page: Experience Page</p>
       </div>
     );
   }
