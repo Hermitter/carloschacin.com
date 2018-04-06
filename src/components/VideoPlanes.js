@@ -25,8 +25,8 @@ export class VideoPlane {
         this.material.map = this.texture;
         this.video_geometry = new THREE.PlaneGeometry( 2, 3, 0 );
         //Three.js object
-        this.videoPlane = new THREE.Mesh( this.video_geometry, this.material );
-        this.videoPlane.material.side = THREE.DoubleSide;
+        this.mesh = new THREE.Mesh( this.video_geometry, this.material );
+        this.mesh.material.side = THREE.DoubleSide;
         //Bind reference required functions
         this.setVideoTexture = this.setVideoTexture.bind(this);
         //Check if device is mobile
@@ -48,7 +48,7 @@ export class VideoPlane {
     }
 
     // - Add Video Plane THREE Object To Scene
-    addPlane(){
-        scene.add(this.videoPlane);
+    addToScene(){
+        scene.add(this.mesh);
     }
 }

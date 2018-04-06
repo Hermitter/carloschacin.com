@@ -10,6 +10,9 @@ import {scene} from './Scene'
 
 var moveDirection = 0;
 var plane1 = new VideoPlane(moviePoster ,movie);
+var plane2 = new VideoPlane(moviePoster ,movie);
+var plane3 = new VideoPlane(moviePoster ,movie);
+var plane4 = new VideoPlane(moviePoster ,movie);
 
 export class Canvas extends Component {
     constructor(props){
@@ -91,9 +94,20 @@ function init() {
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
 
-    plane1.addPlane();
+    //Video Planes\\
+    plane1.addToScene();
+    //plane1.mesh.position.x = -3.7
+    
+    plane2.addToScene();
+    //plane2.mesh.position.x = -1.5
+
+    plane3.addToScene();
+    //plane3.mesh.position.x = 1.5
+
+    plane4.addToScene();
+    //plane4.mesh.position.x = 3.7
+
     //plane1.updateImage();
-    plane1.videoPlane.position.y = 2;
 
     //create two spotlights to illuminate the scene
     var spotLight = new THREE.SpotLight( 0xffffff ); 
@@ -129,12 +143,15 @@ function animate() {
 
     spacesphere.rotation.y += 0.0005;
  
-    
     mesh.rotation.y += 0.02;
     //mesh.position.y += 0.01;
     //camera.lookAt(mesh.position);
-    plane1.videoPlane.rotation.y = mesh.rotation.y;
- 
+    plane1.mesh.rotation.y = mesh.rotation.y;
+    plane2.mesh.rotation.x = mesh.rotation.y;
+    plane3.mesh.rotation.z = mesh.rotation.y;
+    plane4.mesh.rotation.z = mesh.rotation.y;
+    plane4.mesh.rotation.y = mesh.rotation.y;
+    
     //camera.rotation.x += moveDirection;
     renderer.render(scene, camera);
     //console.log(camera.position.x+' '+camera.position.y+' '+camera.position.z);//camera pos(x,y,z)
@@ -153,5 +170,4 @@ function onWindowResize(){
     camera.updateProjectionMatrix();
     //renderer adjust for resize
     renderer.setSize( window.innerWidth, window.innerHeight );
-
 }
