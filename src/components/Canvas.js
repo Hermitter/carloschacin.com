@@ -10,6 +10,7 @@ import { scene } from './../scripts/Scene'
 
 var moveDirection = 0;
 var location;
+var planeFocus;
 var plane1 = new VideoPlane(moviePoster ,movie);
 var plane2 = new VideoPlane(moviePoster ,movie);
 var plane3 = new VideoPlane(moviePoster ,movie);
@@ -31,6 +32,7 @@ export class Canvas extends Component {
 
     //React Render
     render(){
+        planeFocus = this.props.focus;
         //set movedirection based on url (testing will be removed later)
         if(this.props.path == 'about' || this.props.path == 'contact'){
             moveDirection = 0.01;
@@ -114,7 +116,7 @@ function init() {
     plane4.addToScene();
     plane4.mesh.position.x = 3.7
 
-    //create two spotlights to illuminate the scene
+    //Space Illumination
     var spotLight = new THREE.SpotLight( 0xffffff ); 
     spotLight.position.set( -40, 90, -10 ); 
     spotLight.intensity = 2;
@@ -124,6 +126,11 @@ function init() {
     spotLight2.position.set( 40, -90, 30 ); 
     spotLight2.intensity = 1.5;
     scene.add( spotLight2 );
+    //Video Planes Illumination
+    var spotLight3 = new THREE.PointLight( 0xffffff ); 
+    spotLight3.position.set( 0, 0, 4 ); 
+    spotLight3.intensity = 0.02;
+    scene.add( spotLight3 );
 
     //////////////////////////////////
     //RENDERER\\
@@ -141,8 +148,25 @@ function animate() {
     //Orbit Controls for Development
     if(DEV_CONTROLS) controls.update();
 
+    //Logic Animation
+    if(planeFocus === '/about'){
+        camera.lookAt(plane1.mesh.position);
+    }
+    else if(planeFocus === '/experience'){
+        camera.lookAt(plane2.mesh.position);
+    }
+    else if(planeFocus === '/projects'){
+        camera.lookAt(plane3.mesh.position);
+    }
+    else if(planeFocus === '/contact'){
+        camera.lookAt(plane4.mesh.position);
+    }
+    else if(planeFocus === '/'){
+        camera.lookAt(mesh.position);
+    }
+
     //Static Animations
-    camera.rotation.y += moveDirection;
+    mesh.rotation.y += moveDirection;
     spacesphere.rotation.y += 0.0005;
 
     //Render Scene

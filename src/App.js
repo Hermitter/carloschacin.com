@@ -17,7 +17,7 @@ export class App extends Component {
     this.setCurrentFocus = this.setCurrentFocus.bind(this);
   }
 
-  // - Updates Nav Focus Point
+  // - Updates Nav Button Being Focused
   setCurrentFocus(newFocus){
     this.setState({focus: newFocus});
   }
@@ -30,7 +30,8 @@ export class App extends Component {
   render(){
     return(
       <div>
-        <Nav />
+        {/* <Nav onFocus={this.setCurrentFocus.bind(this)}/> */}
+        <Nav onFocus={this.setCurrentFocus} />
         <HashRouter basename='/'>
         {/*Decide On HTML To load*/}
           <Switch>
@@ -42,7 +43,7 @@ export class App extends Component {
           </Switch>
         </HashRouter>
         {/* Three.js Rendered Here */}
-        <Canvas path={this.state.path} />
+        <Canvas path={this.state.path} focus={this.state.focus}/>
       </div>
     );
   }
