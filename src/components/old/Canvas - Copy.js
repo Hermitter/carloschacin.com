@@ -3,12 +3,11 @@ import * as THREE from 'three';
 import * as TrackballControls from 'three-trackballcontrols';
 import './Canvas.css';
 import spaceImage from './../media/space.jpg';
-import movie from './../media/movie.mp4';
+import spaceImage2 from './../media/space2.jpg';
 import {VideoPlane} from './VideoPlanes'
-import {scene} from './Scene'
+//import {Scene} from './Scene'
 
 var moveDirection = 0;
-var plane1 = new VideoPlane(movie);
 
 export class Canvas extends Component {
     constructor(props){
@@ -52,9 +51,9 @@ window.addEventListener( 'resize', onWindowResize, false );
 //////////////////////////////////
 // Functions
 /////////////////////////////////
-var camera, renderer;
+var camera, scene, renderer;
 var geometry, material, controls, mesh, spacesphere, mirror;
-var DEV_CONTROLS = true;
+var DEV_CONTROLS = false;
 function init() {
     //////////////////////////////////
     //CAMERA\\
@@ -68,7 +67,7 @@ function init() {
     
     //////////////////////////////////
     //SCENE\\
-    //scene = new THREE.Scene();
+    scene = new THREE.Scene();
  
     //mirror\\
     // var mirror_texture = new THREE.VideoTexture( mirror_video );
@@ -106,10 +105,6 @@ function init() {
     material = new THREE.MeshNormalMaterial(); 
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
-
-    plane1.addPlane();
-    //plane1.updateImage();
-    plane1.videoPlane.position.y = 2;
 
     //create two spotlights to illuminate the scene
     var spotLight = new THREE.SpotLight( 0xffffff ); 
