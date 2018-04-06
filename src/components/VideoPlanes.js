@@ -13,7 +13,7 @@ export class VideoPlane {
         //Define video properties
         this.video.className = 'video-texture';
         this.video.autoplay = true;
-        this.video.src = video_src;
+        this.video.src = !window.isDeviceMobile ? video_src : {};
         this.video.muted = true;
         this.video.loop = true;
         //Three.js object parameters
@@ -29,7 +29,7 @@ export class VideoPlane {
         this.mesh.material.side = THREE.DoubleSide;
         //Bind reference required functions
         this.setVideoTexture = this.setVideoTexture.bind(this);
-        //Check if device is mobile
+        //Check if device is not mobile
         if(!window.isDeviceMobile){
             //Replace video poster with video when loaded
             this.video.addEventListener('loadedmetadata', this.setVideoTexture);

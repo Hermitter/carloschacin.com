@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import * as TrackballControls from 'three-trackballcontrols';
 import './Canvas.css';
 import spaceImage from './../media/space.jpg';
-import movie from './../media/movie2.mp4';
+import movie from './../media/movie.mp4';
 import moviePoster from './../media/poster.png'
 import {VideoPlane} from './VideoPlanes'
 import {scene} from './Scene'
