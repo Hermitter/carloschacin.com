@@ -21,7 +21,7 @@ export class VideoPlane {
         this.texture.minFilter = THREE.LinearFilter;
         this.texture.magFilter = THREE.LinearFilter;
         this.texture.format = THREE.RGBFormat;
-        this.material = new THREE.MeshPhongMaterial();
+        this.material = new THREE.MeshBasicMaterial();
         this.material.map = this.texture;
         this.video_geometry = new THREE.PlaneGeometry( 1, 2, 0 );
         //Three.js object

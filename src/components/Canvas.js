@@ -129,8 +129,8 @@ function init() {
     //Video Planes Illumination
     var spotLight3 = new THREE.PointLight( 0xffffff ); 
     spotLight3.position.set( 0, 0, 4 ); 
-    spotLight3.intensity = 0.02;
-    scene.add( spotLight3 );
+    spotLight3.intensity = 1;
+    //scene.add( spotLight3 );
 
     //////////////////////////////////
     //RENDERER\\
