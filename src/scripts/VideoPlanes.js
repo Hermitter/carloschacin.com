@@ -32,12 +32,14 @@ export class VideoPlane {
         //Check if device is not mobile
         if(!window.isDeviceMobile){
             //Replace video poster with video when loaded
-            this.video.addEventListener('loadedmetadata', this.setVideoTexture);
+            this.video.oncanplaythrough = this.setVideoTexture
+            //this.video.addEventListener('canplaythrough', this.setVideoTexture);
         }
     }
 
     // - Replace videoPlane Texture with Video
     setVideoTexture(){
+        this.video.play();
         this.texture = new THREE.VideoTexture( this.video );
         this.texture.minFilter = THREE.LinearFilter;
         this.texture.magFilter = THREE.LinearFilter;

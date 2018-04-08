@@ -65,19 +65,23 @@ window.addEventListener( 'resize', onWindowResize, false );
 //////////////////////////////////
 // Functions
 /////////////////////////////////
-var camera, renderer;//visual vars
+var camera, fakeCamera, renderer;//visual vars
 var geometry, material, controls, mesh, spacesphere;//scene vars
 var DEV_CONTROLS = false;//orbit controls
 function init() {
     //////////////////////////////////
     //CAMERA\\
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 1000 );
+    fakeCamera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 1000 );
+
     if(DEV_CONTROLS)
         controls = new TrackballControls( camera );//controls for Development!
 
     camera.position.x = 0;
     camera.position.y = 0;
     camera.position.z = 4;
+    //follow main camera position
+    fakeCamera.position.z = camera.position.z;
     
     //////////////////////////////////
     //SCENE\\
@@ -106,15 +110,19 @@ function init() {
     //Video Planes\\
     plane1.addToScene();
     plane1.mesh.position.x = -3.7
+    //plane1.mesh.lookAt(camera.position)
     
     plane2.addToScene();
     plane2.mesh.position.x = -1.5
+    //plane2.mesh.lookAt(camera.position)
 
     plane3.addToScene();
     plane3.mesh.position.x = 1.5
+    //plane3.mesh.lookAt(camera.position)
 
     plane4.addToScene();
     plane4.mesh.position.x = 3.7
+    //plane4.mesh.lookAt(camera.position)
 
     //Space Illumination
     var spotLight = new THREE.SpotLight( 0xffffff ); 
@@ -142,6 +150,10 @@ function init() {
 }
 
 // - Animation loop
+var qm = new THREE.Quaternion();
+//camera.quaternion = qm;
+//camera.quaternion.normalize();
+
 function animate() {
     requestAnimationFrame( animate );
 
@@ -149,24 +161,39 @@ function animate() {
     if(DEV_CONTROLS) controls.update();
 
     //Logic Animation
+    var desiredFocus;
     if(planeFocus === '/about'){
-        camera.lookAt(plane1.mesh.position);
+        desiredFocus = plane1.mesh;
+        //camera.lookAt(plane1.mesh.position);
     }
     else if(planeFocus === '/experience'){
-        camera.lookAt(plane2.mesh.position);
+        desiredFocus = plane2.mesh;
+        //camera.lookAt(plane2.mesh.position);
     }
     else if(planeFocus === '/projects'){
-        camera.lookAt(plane3.mesh.position);
+        desiredFocus = plane3.mesh;
+        //camera.lookAt(plane3.mesh.position);
     }
     else if(planeFocus === '/contact'){
-        camera.lookAt(plane4.mesh.position);
+        desiredFocus = plane4.mesh;
+        //camera.lookAt(plane4.mesh.position);
     }
     else if(planeFocus === '/'){
-        camera.lookAt(mesh.position);
+        desiredFocus = mesh;
+        //camera.lookAt(mesh.position);
     }
 
+    //Smooth camera transition example (TO BE IMPORVED ON LATER!!!!)
+    fakeCamera.lookAt(desiredFocus.position);
+    var test = new THREE.Quaternion().copy( fakeCamera.quaternion );
+
+    console.log(fakeCamera.quaternion)
+    
+    camera.quaternion.slerp( test, 0.5 );
+    desiredFocus.position.y += 0.005;
+
     //Static Animations
-    mesh.rotation.y += moveDirection;
+    //mesh.rotation.y += moveDirection;
     spacesphere.rotation.y += 0.0005;
 
     //Render Scene
@@ -174,7 +201,7 @@ function animate() {
 }
 
 // - Starts canvas animation
-function startCanvas(params){
+function startCanvas(){
     init();
     animate();
 }
