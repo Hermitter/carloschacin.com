@@ -9,7 +9,7 @@ import { VideoPlane } from './../scripts/VideoPlanes'
 import { scene } from './../scripts/Scene'
 
 var moveDirection = 0;
-var location;
+var location;//see if this can be removed later
 var planeFocus;
 var plane1 = new VideoPlane(moviePoster ,movie);
 var plane2 = new VideoPlane(moviePoster ,movie);
@@ -55,12 +55,10 @@ export class Canvas extends Component {
     }
 }
 
-
 //////////////////////////////////
 // Event Listeners
 /////////////////////////////////
 window.addEventListener( 'resize', onWindowResize, false );
-
 
 //////////////////////////////////
 // Functions
@@ -85,7 +83,6 @@ function init() {
     
     //////////////////////////////////
     //SCENE\\
-
     //space sphere\\
     var spacetex = new THREE.TextureLoader().load( spaceImage );
     var spacesphereGeo = new THREE.SphereGeometry(40,40,40);
@@ -149,55 +146,65 @@ function init() {
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 }
 
-// - Animation loop
-var qm = new THREE.Quaternion();
-//camera.quaternion = qm;
-//camera.quaternion.normalize();
 
+//////////////////////////////////
+//ANIMATION\\
 function animate() {
     requestAnimationFrame( animate );
 
     //Orbit Controls for Development
     if(DEV_CONTROLS) controls.update();
 
-    //Logic Animation
+    //Animation For Mouse Nav Hover
     var desiredFocus;
     if(planeFocus === '/about'){
         desiredFocus = plane1.mesh;
-        //camera.lookAt(plane1.mesh.position);
     }
     else if(planeFocus === '/experience'){
         desiredFocus = plane2.mesh;
-        //camera.lookAt(plane2.mesh.position);
     }
     else if(planeFocus === '/projects'){
         desiredFocus = plane3.mesh;
-        //camera.lookAt(plane3.mesh.position);
     }
     else if(planeFocus === '/contact'){
         desiredFocus = plane4.mesh;
-        //camera.lookAt(plane4.mesh.position);
     }
     else if(planeFocus === '/'){
         desiredFocus = mesh;
-        //camera.lookAt(mesh.position);
     }
 
-    //Smooth camera transition example (TO BE IMPORVED ON LATER!!!!)
-    fakeCamera.lookAt(desiredFocus.position);
-    var test = new THREE.Quaternion().copy( fakeCamera.quaternion );
-
-    console.log(fakeCamera.quaternion)
+    //Smooth rotation transition
+    smoothLookAt(camera, desiredFocus)
     
-    camera.quaternion.slerp( test, 0.5 );
-    desiredFocus.position.y += 0.005;
-
     //Static Animations
-    //mesh.rotation.y += moveDirection;
     spacesphere.rotation.y += 0.0005;
+
+    //Video Plane Slow Hover
+    hoverVideoPlanes();
 
     //Render Scene
     renderer.render(scene, camera);
+}
+
+//- Created a smooth rotation transition (YOU LEFT OFF FINISHING THIS FUNCTION BTW)
+function smoothLookAt(obectToMove, obectToMoveTo){
+
+    fakeCamera.lookAt(obectToMoveTo.position);
+
+    var destinationQuaternion = new THREE.Quaternion().copy(fakeCamera.quaternion);
+    
+    obectToMove.quaternion.slerp(destinationQuaternion, 0.5);
+}
+
+// - Smooth hover for videoplanes
+var hoverCounter = 0;
+function hoverVideoPlanes(){
+    plane1.mesh.position.y = -Math.sin(hoverCounter);
+    plane2.mesh.position.y = -Math.cos(hoverCounter);
+    plane3.mesh.position.y = Math.sin(hoverCounter);
+    plane4.mesh.position.y = Math.cos(hoverCounter);
+
+    hoverCounter+= (Math.PI/460);
 }
 
 // - Starts canvas animation

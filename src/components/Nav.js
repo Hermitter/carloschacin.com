@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { HashRouter, Switch, Route, NavLink } from 'react-router-dom';
 import './Nav.css'
+import './../scripts/animate.css'
 
 export class Nav extends Component{
     constructor(props){
@@ -20,7 +21,7 @@ export class Nav extends Component{
             <nav id='navigation'>
                 <HashRouter basename='/'>
                 {/*Decide On HTML To load*/}
-                    <div>
+                    <div className='animated fadeInDown'>
                         <NavLink to='/' onMouseOver={()=>{this.onMouseOver('/')}} className='nav-button'>Home</NavLink>
                         <NavLink to='/about' onMouseOver={()=>{this.onMouseOver('/about')}} className='nav-button'>About</NavLink>
                         <NavLink to='/experience' onMouseOver={()=>{this.onMouseOver('/experience')}} className='nav-button'>Experience</NavLink>
