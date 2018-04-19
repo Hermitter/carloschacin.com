@@ -2,4 +2,4 @@
 
 # Overview
 
-This was my first attempt at using React and Three.js in trying to create a unique website. This branch is saved here as a reference for future ideas that I may have with creating 3d websites.
+This was my first attempt at using React and Three.js in trying to create a unique website. This branch is saved here as a reference for future ideas that I may have with creating 3D websites.
