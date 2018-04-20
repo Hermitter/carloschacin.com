@@ -4,17 +4,18 @@ import * as TrackballControls from 'three-trackballcontrols';
 import './Canvas.css';
 import spaceImage from './../media/space.jpg';
 import movie from './../media/movie.mp4';
+import movie2 from './../media/movie2.mp4';
 import moviePoster from './../media/poster.png'
 import { VideoPlane } from './../scripts/VideoPlanes'
 import { scene } from './../scripts/Scene'
 
-var moveDirection = 0;
-var location;//see if this can be removed later
+var routerPath;
+
 var planeFocus;
 var plane1 = new VideoPlane(moviePoster ,movie);
-var plane2 = new VideoPlane(moviePoster ,movie);
+var plane2 = new VideoPlane(moviePoster ,movie2);
 var plane3 = new VideoPlane(moviePoster ,movie);
-var plane4 = new VideoPlane(moviePoster ,movie);
+var plane4 = new VideoPlane(moviePoster ,movie2);
 
 export class Canvas extends Component {
     constructor(props){
@@ -34,12 +35,8 @@ export class Canvas extends Component {
     render(){
         planeFocus = this.props.focus;
         //set movedirection based on url (testing will be removed later)
-        if(this.props.path == 'about' || this.props.path == 'contact'){
-            moveDirection = 0.01;
-        }
-        else{
-            moveDirection = -0.01;
-        }
+        routerPath = this.props.path;
+        console.log(routerPath);
 
         return(
             <div>
@@ -64,7 +61,7 @@ window.addEventListener( 'resize', onWindowResize, false );
 // Functions
 /////////////////////////////////
 var camera, fakeCamera, renderer;//visual vars
-var geometry, material, controls, mesh, spacesphere;//scene vars
+var geometry, material, controls, homePoint, spacesphere;//scene vars
 var DEV_CONTROLS = false;//orbit controls
 function init() {
     //////////////////////////////////
@@ -77,7 +74,7 @@ function init() {
 
     camera.position.x = 0;
     camera.position.y = 0;
-    camera.position.z = 4;
+    camera.position.z = 7;
     //follow main camera position
     fakeCamera.position.z = camera.position.z;
     
@@ -100,27 +97,23 @@ function init() {
     
     //spining cube\\
     geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-    material = new THREE.MeshNormalMaterial(); 
-    mesh = new THREE.Mesh( geometry, material );
-    scene.add( mesh );
+    material = new THREE.MeshNormalMaterial({alphaTest : 1}); 
+    homePoint = new THREE.Mesh( geometry, material );
+    //scene.add( homePoint );
 
     //Video Planes\\
     plane1.addToScene();
     plane1.mesh.position.x = -3.7
-    //plane1.mesh.lookAt(camera.position)
     
     plane2.addToScene();
     plane2.mesh.position.x = -1.5
-    //plane2.mesh.lookAt(camera.position)
 
     plane3.addToScene();
     plane3.mesh.position.x = 1.5
-    //plane3.mesh.lookAt(camera.position)
 
     plane4.addToScene();
     plane4.mesh.position.x = 3.7
-    //plane4.mesh.lookAt(camera.position)
-
+    
     //Space Illumination
     var spotLight = new THREE.SpotLight( 0xffffff ); 
     spotLight.position.set( -40, 90, -10 ); 
@@ -146,38 +139,57 @@ function init() {
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 }
 
-
 //////////////////////////////////
 //ANIMATION\\
 function animate() {
     requestAnimationFrame( animate );
 
     //Orbit Controls for Development
-    if(DEV_CONTROLS) controls.update();
+    if(DEV_CONTROLS) {controls.update()};
 
     //Animation For Mouse Nav Hover
-    var desiredFocus;
-    if(planeFocus === '/about'){
-        desiredFocus = plane1.mesh;
+    var originalShape = new THREE.SphereGeometry( 1, 50, 50, 10 );
+    if(plane1.mesh.geometry !== originalShape){plane1.mesh.geometry = originalShape}
+    if(plane2.mesh.geometry !== originalShape){plane2.mesh.geometry = originalShape}
+    if(plane3.mesh.geometry !== originalShape){plane3.mesh.geometry = originalShape}
+    if(plane4.mesh.geometry !== originalShape){plane4.mesh.geometry = originalShape}
+
+    if(planeFocus  === '/about'){
+        plane1.mesh.geometry = new THREE.PlaneGeometry( 2, 4 );
     }
-    else if(planeFocus === '/experience'){
-        desiredFocus = plane2.mesh;
+    else if(planeFocus  === '/experience'){
+        plane2.mesh.geometry = new THREE.PlaneGeometry( 2, 4 );
     }
-    else if(planeFocus === '/projects'){
-        desiredFocus = plane3.mesh;
+    else if(planeFocus  === '/projects'){
+        plane3.mesh.geometry = new THREE.PlaneGeometry( 2, 4 );
     }
-    else if(planeFocus === '/contact'){
-        desiredFocus = plane4.mesh;
-    }
-    else if(planeFocus === '/'){
-        desiredFocus = mesh;
+    else if(planeFocus  === '/contact'){
+        plane4.mesh.geometry = new THREE.PlaneGeometry( 2, 4 );
     }
 
-    //Smooth rotation transition
-    smoothLookAt(camera, desiredFocus)
+    //Animation For Mouse Route Path
+    if(routerPath === 'about'){
+        smoothLookAt(camera, plane1.mesh);
+    }
+    else if(routerPath === 'experience'){
+        smoothLookAt(camera, plane2.mesh);
+    }
+    else if(routerPath === 'projects'){
+        smoothLookAt(camera, plane3.mesh);
+    }
+    else if(routerPath === 'contact'){
+        smoothLookAt(camera, plane4.mesh);
+    }
+    else if(routerPath === '/'){
+        smoothLookAt(camera, homePoint);
+    }
     
     //Static Animations
     spacesphere.rotation.y += 0.0005;
+    plane1.mesh.lookAt(camera.position);
+    plane2.mesh.lookAt(camera.position);
+    plane3.mesh.lookAt(camera.position);
+    plane4.mesh.lookAt(camera.position);
 
     //Video Plane Slow Hover
     hoverVideoPlanes();
@@ -185,6 +197,9 @@ function animate() {
     //Render Scene
     renderer.render(scene, camera);
 }
+var counter = 0;
+
+//- Reset Video Planes to Rest Rotation
 
 //- Created a smooth rotation transition (YOU LEFT OFF FINISHING THIS FUNCTION BTW)
 function smoothLookAt(obectToMove, obectToMoveTo){
