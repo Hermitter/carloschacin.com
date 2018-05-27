@@ -1,0 +1,21 @@
+#navigation{
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+}
+
+#navigation-item{
+    text-align: center;
+    flex: 1;
+    list-style-type: none;
+    padding: 10px;
+  }
+
+#navigation-item a{
+    color: white;
+    text-decoration: none;
+}

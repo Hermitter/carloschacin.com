@@ -1,12 +1,8 @@
-body{
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background-color: black;
-  font-family: sans-serif;
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
 }
-
-root{
-  height: 100%;
-  width: 100%;
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
 }
