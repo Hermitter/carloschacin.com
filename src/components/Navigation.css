@@ -1,5 +1,5 @@
 #navigation{
-    padding: 0;
+    padding-top: 10px;
     margin: auto;
     /* position: absolute; */
     /* top: 0; */
@@ -22,11 +22,10 @@
 
 #navigation-item{
     font-family: BN-titling-oblique;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
     flex: 1;
     list-style-type: none;
-    padding: 10px;
   }
 
 #navigation-item a{
@@ -36,4 +35,15 @@
 
 #navigation-item a:hover{
     text-decoration: underline;
+}
+
+#github-logo{
+    width: 40px;
+}
+
+#github-logo:hover{
+    border-bottom-style: solid;
+    /* border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%; */
+    border-bottom-width: 2px;
 }
