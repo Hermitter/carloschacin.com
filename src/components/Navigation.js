@@ -15,11 +15,7 @@ export class Navigation extends React.Component {
         </li>
 
         <li id='navigation-item'>
-          <Link to="/rgb/33/150/243">Blue</Link>
-        </li>
-
-        <li id='navigation-item'>
-          <Link to="/rgb/240/98/146">Pink</Link>
+          <Link to="/projects">Projects</Link>
         </li>
       </ul>
     );
