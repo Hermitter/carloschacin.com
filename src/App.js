@@ -6,33 +6,33 @@ import { Home } from './pages/Home.js';
 import { Projects } from './pages/Projects/Projects.js';
 import { About } from './pages/About.js';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 export class App extends Component {
   render() {
     return (
       <Router basename={process.env.PUBLIC_URL}>
-        <Route render={({ location }) => (
+        <Route path='/' render={({ location }) => (
           <div id='app-container'>
             {/* NAVIGATION */}
             <Navigation/>
-            
+            {/* 3D BACKGROUND */}
             <Canvas/>
 
             {/* MAIN CONTENT */}
             <div id='content'>
-              <TransitionGroup>
-                <CSSTransition key={location.key} classNames="fade" timeout={200}>
+              {/* <TransitionGroup> */}
+                {/* <CSSTransition key={location.key} classNames="fade" timeout={200}> */}
 
                   {/* LOAD REQUESTED PAGE */}
                   <Switch location={location}>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/about" component={About} />
-                    <Route exact path="/projects" component={Projects} />
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/about' component={About} />
+                    <Route exact path='/projects' component={Projects} />
                     <Route render={() => <div>Not Found</div>} />
                   </Switch>
-                </CSSTransition>
-              </TransitionGroup>
+                {/* </CSSTransition> */}
+              {/* </TransitionGroup> */}
             </div>
           </div>
         )}/>

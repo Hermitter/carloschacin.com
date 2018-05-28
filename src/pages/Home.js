@@ -5,7 +5,7 @@ import './../styles/animate.css'
 export class Home extends React.Component {
   render() {
     return(
-      <div id='home-container' className='animated zoomIn'>
+      <div id='home-container' className='animated fadeIn'>
         <p style={{fontSize:'40px'}}>Current Page: Home Page</p>
         <p style={{fontSize:'40px'}}>Current Page: Home Page</p>
         <p style={{fontSize:'40px'}}>Current Page: Home Page</p>
