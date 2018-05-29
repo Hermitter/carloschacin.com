@@ -1,5 +1,8 @@
 #navigation{
-    padding-top: 10px;
+    /* padding-top: 10px; */
+    padding-left: 0;
+    max-width: 757px;
+    min-width: 300px;
     margin: auto;
     /* position: absolute; */
     /* top: 0; */
@@ -18,7 +21,6 @@
     font-family: 'BN-titling';
     src: url(./../styles/fonts/big-noodle-titling.ttf) format('truetype');
 }
-
 
 #navigation-item{
     font-family: BN-titling-oblique;

@@ -6,24 +6,3 @@
   opacity: 1;
   transition: opacity 250ms ease-in;
 }
-
-/* width */
-::-webkit-scrollbar {
-  width: 1%;
-  
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}

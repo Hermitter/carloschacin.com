@@ -9,6 +9,7 @@
 
 #app-container{
   position: absolute;
+  margin-top: 10px;
   left: 0;
   right: 0;
   top: 0;
