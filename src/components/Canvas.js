@@ -125,6 +125,10 @@ function animate() {
 
     //Render Scene
     renderer.render(scene, camera);
+
+    //Test Animations
+    //spacesphere.rotation.z += 0.02;
+
 }
 
 // - Starts canvas animation
