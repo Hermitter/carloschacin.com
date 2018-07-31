@@ -19,7 +19,6 @@ export class App extends Component {
       this.setState({
         url_path: new_url_path
       });
-      console.log("NEW PATH: " + new_url_path);
   }
 
   // - On Component Load
@@ -28,11 +27,12 @@ export class App extends Component {
     var loadingScreen = document.getElementById('loading-screen');
     loadingScreen.classList.add('animated');
     loadingScreen.classList.add('fadeOut');
+    // Remove after fade
     setTimeout(()=>{
       var parent = document.getElementById('body');
       var child = document.getElementById('loading-screen');
       parent.removeChild(child);
-    },500)
+    },500);
   }
 
   render() {
@@ -43,8 +43,7 @@ export class App extends Component {
             {/* NAVIGATION */}
             <Navigation/>
             {/* 3D BACKGROUND */}
-            {console.log(location)}
-            <Canvas current_url_path={location}/>
+            <Canvas setting={location.pathname}/>
             {/* MAIN CONTENT */}
             <div id='content'>
                   {/* LOAD REQUESTED PAGE */}

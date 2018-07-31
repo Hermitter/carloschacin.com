@@ -10,25 +10,28 @@ var canvas_setting = '';
 export class Canvas extends Component {
     constructor(props){
         super(props);
-        this.state = {url_path: ''}// url location
+        this.state = {canvas_setting: ''}// url location
     }
 
     // - On Component Load
     componentDidMount(){
-        // canvas_setting = this.props.current_url_path.pathname;
         startCanvas();//Render Three.js Scene
     }
 
     // - On New Props
     componentWillReceiveProps(props) {
-        // If url hasn't changed
-        if(this.state.url_path !== this.props.current_url_path){
-            // Update url_path state
-            this.setState({
-                url_path: this.props.current_url_path
-            });
-            // Update global canvas setting
-            canvas_setting = this.props.current_url_path.pathname;
+        // If a new setting is set
+        if(canvas_setting !== this.props.setting){
+            console.log(this.props.setting);//log current url
+            // If url hasn't changed
+            if(this.state.canvas_setting !== this.props.setting){
+                // Update url_path state
+                this.setState({
+                    canvas_setting: this.props.setting
+                });
+                // Update global canvas setting
+                canvas_setting = this.props.setting;
+            }
         }
     }
 
