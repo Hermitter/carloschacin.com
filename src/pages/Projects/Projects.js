@@ -3,6 +3,15 @@ import './Projects.css';
 import './../../styles/animate.css'
 
 export class Projects extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  // - On Component Mount
+  componentDidMount(){
+    this.props.update_url('/projects');
+  }
+
   render() {
     return(
       <div id='Projects-container' className='animated fadeIn'>

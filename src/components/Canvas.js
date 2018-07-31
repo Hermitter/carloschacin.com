@@ -5,32 +5,39 @@ import './Canvas.css';
 import { scene } from './Scene.js'
 import spaceImage from './../media/space.jpg';
 
+var canvas_setting = '';
+
 export class Canvas extends Component {
     constructor(props){
         super(props);
-        this.state = {location: ''}//url location
-        this.sceneMove = this.sceneMove.bind(this);
+        this.state = {url_path: ''}// url location
     }
 
-    // - Tell React To Rerender (MAY NOT BE NEEDED)
-    sceneMove(newLocation){
-        this.setState({
-            location: newLocation
-        })
+    // - On Component Load
+    componentDidMount(){
+        // canvas_setting = this.props.current_url_path.pathname;
+        startCanvas();//Render Three.js Scene
     }
 
-    //React Render
+    // - On New Props
+    componentWillReceiveProps(props) {
+        // If url hasn't changed
+        if(this.state.url_path !== this.props.current_url_path){
+            // Update url_path state
+            this.setState({
+                url_path: this.props.current_url_path
+            });
+            // Update global canvas setting
+            canvas_setting = this.props.current_url_path.pathname;
+        }
+    }
+
     render(){
         return(
             <div>
                 <div id='canvas-container'></div>
             </div>
         );
-    }
-
-    //On Component Load
-    componentDidMount(){
-        startCanvas();//Render Three.js Scene
     }
 }
 
@@ -81,9 +88,8 @@ function init() {
     geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
     material = new THREE.MeshNormalMaterial({alphaTest : 1}); 
     homePoint = new THREE.Mesh( geometry, material );
-    //scene.add( homePoint );
+    scene.add( homePoint );
 
-    
     //Space Illumination
     var spotLight = new THREE.SpotLight( 0xffffff ); 
     spotLight.position.set( -40, 90, -10 ); 
@@ -117,18 +123,14 @@ function animate() {
     //Orbit Controls for Development
     if(DEV_CONTROLS) {controls.update()};
 
-    //Animation For Mouse Nav Hover
-    var originalShape = new THREE.SphereGeometry( 1, 50, 50, 10 );
-
     //Static Animations
-    spacesphere.rotation.y += 0.0005;
+    if(canvas_setting === '/')
+        spacesphere.rotation.y += 0.0005;
+    else if(canvas_setting === '/projects')
+        spacesphere.rotation.z -= 0.0105;
 
     //Render Scene
     renderer.render(scene, camera);
-
-    //Test Animations
-    //spacesphere.rotation.z += 0.02;
-
 }
 
 // - Starts canvas animation

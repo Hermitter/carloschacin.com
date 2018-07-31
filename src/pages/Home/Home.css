@@ -1,19 +1,13 @@
 #home-container{
     color: white;
-    /* background-color: white; */
-    position: absolute;
-    top: 40px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    text-align: center;
 }
 
 /* PROFILE PICTURE */
 #profile-picture-container{
-    height:281px;
-    width:100%;
-    margin:0 auto;
+    display: block;
+    margin: auto;
+    height: auto;
+    text-align: center;
 }
 
 #profile-picture-top, #profile-picture-bottom{
@@ -22,11 +16,15 @@
     border-radius: 100%;
     border-style: solid;
     border-color: black;
+    position: relative;
+    margin: auto;
 }
 
-.profile-picture-slot{
-    width: 100%;
-    margin: auto;
+/* FANCY INTRODUCTION TEXT */
+#intro-text
+{
     text-align: center;
-    height: 0;
+    margin: auto;
+    font-family: BN-titling;
+    width: 300px;
 }

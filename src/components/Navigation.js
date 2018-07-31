@@ -6,7 +6,7 @@ import github_logo from './../media/github-logo.svg';
 export class Navigation extends React.Component {
   render() {
     return(
-      <ul id='navigation'>
+      <ul id='navigation' className='animated zoomIn'>
         <li id='navigation-item'>
           <Link to="/">Home</Link>
         </li>

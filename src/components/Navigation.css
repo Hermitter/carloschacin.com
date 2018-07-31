@@ -1,25 +1,11 @@
 #navigation{
-    /* padding-top: 10px; */
     padding-left: 0;
     max-width: 757px;
     min-width: 300px;
     margin: auto;
-    /* position: absolute; */
-    /* top: 0; */
-    height: 40px;
-    /* width: 100%; */
+    padding-top: 10px;
     width: 60%;
     display: flex;
-}
-
-@font-face {
-    font-family: 'BN-titling-oblique';
-    src: url(./../styles/fonts/big-noodle-titling-oblique.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'BN-titling';
-    src: url(./../styles/fonts/big-noodle-titling.ttf) format('truetype');
 }
 
 #navigation-item{
@@ -45,7 +31,11 @@
 
 #github-logo:hover{
     border-bottom-style: solid;
-    /* border-bottom-right-radius: 20%;
-    border-bottom-left-radius: 20%; */
     border-bottom-width: 2px;
+}
+
+@media only screen and (min-width: 757px) {
+    #navigation-item{
+        font-size: 60px;
+    }
 }
