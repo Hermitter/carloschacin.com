@@ -34,8 +34,29 @@
     border-bottom-width: 2px;
 }
 
-@media only screen and (min-width: 757px) {
+@media only screen and (min-width: 757px){
     #navigation-item{
         font-size: 60px;
+    }
+}
+
+@media only screen and (max-width: 376px){
+    #navigation-item{
+        flex: auto;
+    }
+}
+
+@media only screen and (max-width: 300px){
+    #navigation-item{
+        font-size: 30px;
+        /*flex: auto;*/
+    }
+
+    #github-logo{
+        width: 30px;
+    }
+
+    #navigation{
+            min-width: 200px;
     }
 }
