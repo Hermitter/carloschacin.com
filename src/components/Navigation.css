@@ -1,4 +1,4 @@
-#navigation{
+#nav{
     padding-left: 0;
     max-width: 757px;
     min-width: 300px;
@@ -6,9 +6,10 @@
     padding-top: 10px;
     width: 60%;
     display: flex;
+    margin-bottom: 10px;
 }
 
-#navigation-item{
+#nav-item{
     font-family: BN-titling-oblique;
     font-size: 40px;
     text-align: center;
@@ -16,12 +17,12 @@
     list-style-type: none;
   }
 
-#navigation-item a{
+#nav-link{
     color: white;
     text-decoration: none;
 }
 
-#navigation-item a:hover{
+#nav-link:hover{
     text-decoration: underline;
 }
 
@@ -30,33 +31,32 @@
 }
 
 #github-logo:hover{
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
+    background-color: #5d5e5f;
+    border-radius: 50%;
 }
 
 @media only screen and (min-width: 757px){
-    #navigation-item{
+    #nav-item{
         font-size: 60px;
     }
 }
 
 @media only screen and (max-width: 376px){
-    #navigation-item{
+    #nav-item{
         flex: auto;
     }
 }
 
 @media only screen and (max-width: 300px){
-    #navigation-item{
+    #nav-item{
         font-size: 30px;
-        /*flex: auto;*/
     }
 
     #github-logo{
         width: 30px;
     }
 
-    #navigation{
-            min-width: 200px;
+    #nav{
+        min-width: 200px;
     }
 }

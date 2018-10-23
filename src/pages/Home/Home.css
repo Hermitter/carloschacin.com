@@ -2,12 +2,11 @@
     color: white;
 }
 
-/* PROFILE PICTURE */
 #profile-picture-container{
     display: block;
-    margin: auto;
     height: auto;
     text-align: center;
+    margin: auto;
 }
 
 #profile-picture-top, #profile-picture-bottom{
@@ -20,17 +19,71 @@
     margin: auto;
 }
 
-#intro-text{
+#intro-title{
+    font-size: 50px;
     text-align: center;
     margin: auto;
-    font-family: BN-titling;
+    margin-top: 10px;
+    font-family: Lato;
+    background-color: rgba(0, 0, 0, 0.548);
+    padding: 5px;
+    max-width: max-content;
 }
 
+#intro-sub-title{
+    font-size: 30px;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    font-family: Lato;
+    background-color: rgba(0, 0, 0, 0.548);
+    padding: 5px;
+    max-width: max-content;
+}
 
+#intro-skills-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.intro-skill-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    max-width: max-content;
+    max-height: 300px;
+    border-radius: 3px;
+    margin: auto;
+    margin-top: 40px;
+    background-color: rgba(0, 0, 0, 0.548);
+}
+
+.intro-skill-image{
+    order: 1;
+    width: 100px;
+    height: 100px;
+}
+
+.intro-skill-text{
+    text-align: center;
+    order: 2;
+    width: auto;
+    height: auto;
+    font-family: Lato;
+    font-weight: bold;
+    font-size: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
 @media only screen and (max-width: 313px){
     #profile-picture-bottom{
         width:200px;
         height: 200px;
     }
+
+    justify-content: center;
 }

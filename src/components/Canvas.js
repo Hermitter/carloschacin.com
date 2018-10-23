@@ -129,8 +129,8 @@ function animate() {
     //Static Animations
     if(canvas_setting === '/')
         spacesphere.rotation.y += 0.0005;
-    else if(canvas_setting === '/projects')
-        spacesphere.rotation.z -= 0.0105;
+    else if(canvas_setting === '/blog')
+        spacesphere.rotation.z -= 0.0005;
 
     //Render Scene
     renderer.render(scene, camera);

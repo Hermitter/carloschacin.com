@@ -3,7 +3,7 @@ import './App.css';
 import { Navigation } from './components/Navigation.js';
 import { Canvas } from './components/Canvas.js';
 import { Home } from './pages/Home/Home.js';
-import { Projects } from './pages/Projects/Projects.js';
+import { Blog } from './pages/Blog/Blog.js';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 export class App extends Component {
@@ -49,7 +49,7 @@ export class App extends Component {
                   {/* LOAD REQUESTED PAGE */}
                   <Switch location={location}>
                     <Route exact path='/' render={(props) => (<Home update_url={this.update_url} />)}/>
-                    <Route exact path='/projects' render={(props) => (<Projects update_url={this.update_url} />)}/>
+                    <Route exact path='/blog' render={(props) => (<Blog update_url={this.update_url} />)}/>
                     <Route render={() => <div>404 Not Found</div>} />
                   </Switch>
             </div>

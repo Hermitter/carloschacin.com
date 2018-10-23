@@ -6,18 +6,21 @@ import github_logo from './../media/github-logo.svg';
 export class Navigation extends React.Component {
   render() {
     return(
-      <ul id='navigation' className='animated zoomIn'>
-        <li id='navigation-item'>
-          <Link to="/">Home</Link>
+      // Navigation Menu
+      <ul id='nav' className='animated zoomIn'>
+        {/* Home */}
+        <li id='nav-item'>
+          <Link id="nav-link" to="/">Home</Link>
         </li>
-
-        <li id='navigation-item'>
-          {/* <Link to="/about">About</Link> */}
-          <a href='https://github.com/hermitter' target='_blank'><img id='github-logo' src={github_logo} /></a>
+        {/* Github */}
+        <li id='nav-item'>
+          <a id="github-link" href='https://github.com/hermitter' target='_blank'>
+            <img id="github-logo" src={github_logo} />
+          </a>
         </li>
-
-        <li id='navigation-item'>
-          <Link to="/projects">Projects</Link>
+        {/* Blog */}
+        <li id='nav-item'>
+          <Link id="nav-link" to="/blog">Blog</Link>
         </li>
       </ul>
     );
