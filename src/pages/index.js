@@ -3,13 +3,7 @@ import Nav from '../components/Nav'
 import Layout from '../components/Layout'
 
 export default () => (
-  <div>
-    
-    <Nav/>
-    
-    Hello world!
-    <div>Hello world!</div>
-
-
-  </div>
+    <Layout location={"this.props.location"} title={"siteTitle"}>
+        {/* <Nav/> */}
+    </Layout>
 )
