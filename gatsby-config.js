@@ -69,4 +69,3 @@ module.exports = {
     },
   ],
 }
-Gatsby Starter Blog
